@@ -11,6 +11,7 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 ## Core documents
 
 - [AOTP概念・運用原則](docs/aotp.md)
+- [AOTPの作業単位](docs/work-units.md)
 - [AOTP導入・移行仕様](docs/aotp-installer.md)
 - [AOTPの汎化例](docs/generalization-examples.md)
 - [AOTP 1.0の課題](docs/challenges.md)
@@ -24,6 +25,12 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 - Skill、Agent、Workflow、Project Profileの管理
 - 複数エージェント間の引き継ぎ・並列化・独立レビュー
 - 個別プロジェクトへAOTPを導入・更新する仕組み
+
+## Work unit
+
+AOTPではTaskを実行・記録・検証の基本単位とする。大きな依頼や目的はEpicとして複数Taskを束ねる。高コストなE2E、監査、release reviewなどは各Taskで重複実行せず、必要に応じて独立した横断Taskとして扱える。
+
+詳細は [AOTPの作業単位](docs/work-units.md) を正本とする。
 
 ## Generalization
 
