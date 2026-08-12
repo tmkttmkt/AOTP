@@ -12,6 +12,8 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 
 - [AOTP概念・運用原則](docs/aotp.md)
 - [AOTP導入・移行仕様](docs/aotp-installer.md)
+- [AOTPの汎化例](docs/generalization-examples.md)
+- [AOTP 1.0の課題](docs/challenges.md)
 
 ## Scope
 
@@ -22,6 +24,20 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 - Skill、Agent、Workflow、Project Profileの管理
 - 複数エージェント間の引き継ぎ・並列化・独立レビュー
 - 個別プロジェクトへAOTPを導入・更新する仕組み
+
+## Generalization
+
+AOTPはソフトウェア開発だけを対象としない。調査・研究、設計書や資料作成、大規模リファクタリング、旅行計画や個人調査などにも、Task、Research、Decision、Status、Agent、Skillという共通構造を適用できる。
+
+具体例は [AOTPの汎化例](docs/generalization-examples.md) にまとめる。
+
+## Current challenges
+
+AOTP 1.0は思想、文書モデル、導入契約を正本化した段階であり、実行基盤には未実装部分がある。
+
+特に今後は、Hook等を利用したLoop Engineering的な実行、Task単位のAgent・runtime・モデル・コスト管理、資料・コンテキスト制約、文書schema、Runtime Adapter、自動導入と監査性を強化する。
+
+詳細は [AOTP 1.0の課題](docs/challenges.md) を正本とする。
 
 ## Versioning
 
