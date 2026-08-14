@@ -11,6 +11,7 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 ## Core documents
 
 - [AOTP概念・運用原則](docs/aotp.md)
+- [AOTP文書形式](docs/document-format.md)
 - [AOTPの作業単位](docs/work-units.md)
 - [AOTP導入・移行仕様](docs/aotp-installer.md)
 - [AOTPの汎化例](docs/generalization-examples.md)
