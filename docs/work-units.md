@@ -1,6 +1,9 @@
 ---
-md_class: operation
 aotp_version: 2
+title: "AOTPの作業単位"
+md_class: operation
+created_at: 2026-08-12T13:37:54+09:00
+updated_at: 2026-08-14T12:27:00+09:00
 ---
 
 # AOTPの作業単位
@@ -8,6 +11,8 @@ aotp_version: 2
 AOTPでは、原則として **Taskを実行・記録・検証の基本単位** とする。
 
 Taskより大きい要求はEpicとして束ね、Taskより小さい手順はTask内部のcheckpointや手順として扱う。階層を深くしすぎると、状態管理と引き継ぎのコストが増えるため、基本構造は単純に保つ。
+
+TaskとEpicは `md_class: history` の型として扱う。`history_type`、`state`、`agent`、`relations`、必須見出しなどの文書形式は [AOTP文書形式](document-format.md) を正本とする。
 
 ```text
 Epic
@@ -29,7 +34,7 @@ Taskは、少なくとも次を持つ。
 
 - 目的
 - 完了条件
-- 関連するDesign / Research / Decision / Status
+- 関連するDesign / Proposal / Status等への構造参照
 - 担当Agentまたは人間
 - 必要なruntime / model / role
 - 実行結果
@@ -39,6 +44,8 @@ Taskは、少なくとも次を持つ。
 一つのTaskは、可能な限り一つの明確な成果または判断に対応させる。
 
 Task内部で必要な小作業は、原則として新しい階層を増やさずcheckpointや手順として表現する。独立した担当、独立した検証、別のAgentへの委任、個別の失敗管理が必要になった時点で、別Taskへ分離する。
+
+Taskの工程状態は `state` で機械可読に管理する。許可値と標準遷移は [AOTP文書形式](document-format.md) に定義し、本文から工程状態を推測させない。
 
 ## Epic
 
@@ -65,6 +72,8 @@ Epic: 認証方式の刷新
 ```
 
 Epicは必ずしも外部依頼に限定しないが、「人間が大きな目的として管理したい粒度」と考えるとよい。
+
+TaskからEpicへの所属は、本文上の一覧だけに依存せず `relations` の `part_of` で機械可読に記録する。逆参照はrepository内のrelation走査から生成し、EpicとTaskの双方へ同じ関係を二重記録しない。
 
 ## 横断Task
 
@@ -166,9 +175,11 @@ AOTP 1.0ではこのtrigger実行基盤自体は未実装であり、将来Hook�
 
 AgentはTaskに従属する実行主体であり、Agentそのものを作業管理の基本単位にはしない。
 
+primaryな担当はhistory frontmatterの `agent` で表す。レビュー担当や補助Agent、runtime、model、budgetなど、実行ごとに変化する詳細はTask本文の実行記録として保持する。
+
 ```text
 Task
- ├─ assigned: claude-code / implementer
+ ├─ agent: claude-code
  ├─ reviewer: codex / reviewer
  ├─ model: ...
  ├─ budget: ...
