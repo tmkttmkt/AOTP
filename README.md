@@ -1,6 +1,6 @@
 # AOTP
 
-**Version 1.0.0**
+**Version 1.1.0**
 
 AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システムを設計・バージョン管理するためのリポジトリである。
 
@@ -49,7 +49,7 @@ AOTP 1.0は思想、文書モデル、導入契約を正本化した段階であ
 
 ## Versioning
 
-AOTP本体のリリース版は `VERSION` で管理し、`MAJOR.MINOR.PATCH` の3段階で付番する。現在の正式版は **1.0.0** である。
+AOTP本体のリリース版は `VERSION` で管理し、`MAJOR.MINOR.PATCH` の3段階で付番する。現在の正式版は **1.1.0** である。
 
 - `MAJOR`: 既存仕様との互換性を壊す大きな変更
 - `MINOR`: 互換性を維持した機能追加・仕様拡張
