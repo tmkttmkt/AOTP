@@ -4,7 +4,7 @@
 
 AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システムを設計・バージョン管理するためのリポジトリである。
 
-目的は、Codex、Claude Code、Gemini CLIなど複数のAI実行環境を、役割・モデル・権限・コスト・検証方法に応じて使い分け、人間とAIが同じMarkdown基盤から作業できる状態を作ることである。
+目的は、Codex、Claude Code、Gemini CLIなど複数のAI実行環境を、役割・モデル・権限・コスト・検証方法に応じて使い分け、AIがMarkdownで状態を外部化し、人間が必要な粒度で認知・判断できる状態を作ることである。
 
 このリポジトリをAOTPの正本とし、個別プロジェクトはAOTPを利用する側として扱う。
 
@@ -20,7 +20,8 @@ AOTP（Agent-Oriented Text Programming）は、個人用のAI運用システム�
 ## Scope
 
 - 人間とAIの役割・権限・責任の外部化
-- Markdownを共通状態として使うエージェント運用
+- MarkdownをAI間の共通状態として用い、人間には要約・規格化されたSVG図・成果物を提示する運用
+- リポジトリ単位の許容リスクと人間の認知ループの調整
 - Codex / Claude Code / Gemini CLI等の使い分け
 - モデル・reasoning・コスト・リスクに応じたルーティング
 - Skill、Agent、Workflow、Project Profileの管理
