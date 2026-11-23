@@ -3,7 +3,7 @@ aotp_version: 2
 title: "AOTP文書形式"
 md_class: operation
 created_at: 2026-08-14T11:39:00+09:00
-updated_at: 2026-08-14T12:27:00+09:00
+updated_at: 2026-11-23T14:46:40+09:00
 ---
 
 # AOTP文書形式
@@ -158,41 +158,43 @@ history文書の型を表す。現時点で次の固定値を定義する。
 
 #### Task
 
-許可値:
+Taskの標準的な工程は、人間とAIの認知ループ「課題・前提 → 指示 →（設計）→ 実装 → 検証 → 認知 → 指示」に対応させる。英語のstate名は機械処理用であり、対応する意味を以下に示す。
 
-```text
-draft
-ready
-implementing
-review_ready
-reviewing
-test_ready
-testing
-completed
-cancelled
-```
+| `state` | 工程 | 意味 |
+|---|---|---|
+| `context` | 課題・前提 | 目的、現状、制約を整理する |
+| `instructed` | 指示 | 人間の指示・受入条件を確定する |
+| `designing` | 設計（任意） | 必要な設計を検討・確定する |
+| `implementing` | 実装 | 作業を実行し成果物を作る |
+| `verifying` | 検証 | テスト、独立レビュー、要求適合などを確認する |
+| `recognizing` | 認知 | 人間が成果と検証結果を把握し、次の指示または完了を判断する |
+| `completed` | 完了 | 完了条件が満たされた |
+| `cancelled` | 中止 | 作業を中止した |
 
-標準遷移:
+標準遷移は `context → instructed → （必要なら designing） → implementing → verifying → recognizing` とする。認知後は、次の指示なら `instructed`、完了判断なら `completed` に移る。検証で問題が見つかった場合は `implementing` または `designing` に戻る。
 
-```text
-draft
-  ↓
-ready
-  ↓
-implementing
-  ↓
-review_ready
-  ↓
-reviewing
-  ↓
-test_ready
-  ↓
-testing
-  ↓
-completed
-```
+- 設計工程は必要な場合だけ通る。
+- 検証で問題が見つかれば `implementing`（設計の見直しが必要なら `designing`）へ戻す。
+- 認知から次の指示を出す場合は `instructed` へ戻す。別の作業が必要なら後続Taskを作ってもよい。
+- 人間の認知ループは複数Taskをまとめてもよい。`recognizing` を各Taskで個別の人間承認を必須にする意味にはしない。Project Profileの許容リスクに応じ、認知・承認の対象とタイミングを決める。委譲された完了条件が満たされ人間認知が不要なTaskは `verifying → completed` としてよい。
+- `cancelled` は途中のいずれの工程からも遷移できる。
 
-工程が存在しない場合は中間stateを省略してよい。`cancelled` は作業中止を表す。
+##### 旧Task状態との対応と変更理由
+
+旧定義は `draft → ready → implementing → review_ready → reviewing → test_ready → testing → completed`（別途 `cancelled`）であった。これはAI内部のレビュー・テスト工程を細分化する一方、人間が「認知して次の指示を出す」工程を表現できなかった。
+
+| 旧state | 新しい標準state | 扱い |
+|---|---|---|
+| `draft` | `context` | 課題・前提の整理に対応 |
+| `ready` | `instructed` | 指示・受入条件の確定に対応 |
+| `implementing` | `implementing` | 変更なし |
+| `review_ready`, `reviewing` | `verifying` | レビューの実施状況・結果は検証記録に残す |
+| `test_ready`, `testing` | `verifying` | テストの実施状況・結果は検証記録に残す |
+| （旧状態なし） | `designing` | 必要時の設計を明示 |
+| （旧状態なし） | `recognizing` | 人間の認知と次の指示の判断を明示 |
+| `completed`, `cancelled` | 同名 | 変更なし |
+
+既存の履歴MDを機械的に書き換えず、旧stateも**既存文書の読み取り用の互換値**として認める。新規Taskでは上記の新しい標準stateを使用する。旧stateを持つTaskの続行や、既存検証器・一覧生成器による新stateの処理は、導入リポジトリで対応状況を確認してから切り替える。文書形式の更新だけで実行基盤の対応が完了したとは扱わない。
 
 #### Design
 
