@@ -3,7 +3,7 @@ aotp_version: 2
 title: "AOTPの作業単位"
 md_class: operation
 created_at: 2026-08-12T13:37:54+09:00
-updated_at: 2026-08-14T12:27:00+09:00
+updated_at: 2026-11-23T14:46:40+09:00
 ---
 
 # AOTPの作業単位
