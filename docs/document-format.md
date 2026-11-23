@@ -3,7 +3,7 @@ aotp_version: 2
 title: "AOTP文書形式"
 md_class: operation
 created_at: 2026-08-14T11:39:00+09:00
-updated_at: 2026-08-14T12:27:00+09:00
+updated_at: 2026-11-23T14:46:40+09:00
 ---
 
 # AOTP文書形式
@@ -171,16 +171,7 @@ Taskの標準的な工程は、人間とAIの認知ループ「課題・前提 �
 | `completed` | 完了 | 完了条件が満たされた |
 | `cancelled` | 中止 | 作業を中止した |
 
-標準遷移:
-
-```text
-context → instructed → [designing] → implementing → verifying → recognizing
-                 ↑                           ↑                │
-                 └───────────────────────────┼────────────────┘
-                                             │
-                                    検証失敗時は再実装
-recognizing → completed（完了判断）
-```
+標準遷移は `context → instructed → （必要なら designing） → implementing → verifying → recognizing` とする。認知後は、次の指示なら `instructed`、完了判断なら `completed` に移る。検証で問題が見つかった場合は `implementing` または `designing` に戻る。
 
 - 設計工程は必要な場合だけ通る。
 - 検証で問題が見つかれば `implementing`（設計の見直しが必要なら `designing`）へ戻す。
